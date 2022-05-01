@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { IFolderRepository } from './IFolderRepository';
+import { IFolderRepository } from './repositories/folders/IFolderRepository';
 
 @Component({
   selector: 'app-root',

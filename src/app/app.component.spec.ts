@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { JsonFolderRepository } from './JsonFolderRepository';
+import { JsonFolderRepository } from './repositories/JsonFolderRepository';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
