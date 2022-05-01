@@ -1,3 +1,3 @@
-export interface FolderRepository { 
+export interface IFolderRepository { 
     getFolders: () => Array<string>;
 }

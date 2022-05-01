@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FolderRepository } from './FolderRepository';
-import { JsonFolderRepository } from './JsonFolderRepository';
+import { IFolderRepository } from './IFolderRepository';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +8,12 @@ import { JsonFolderRepository } from './JsonFolderRepository';
 })
 
 export class AppComponent {
-  public foldernames: Array<string> = [];
+  public constructor(@Inject('IFolderRepository') private folderRepository: IFolderRepository) {}
+
+  public folderNames: Array<string> = [];
   public title = 'code-snippet-storage';
 
   public ngOnInit() {
-    this.foldernames.push("hello", "world");
+    this.folderNames = this.folderRepository.getFolders();
   }
 }

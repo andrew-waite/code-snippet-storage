@@ -1,7 +1,11 @@
-import { FolderRepository } from "./FolderRepository";
+import { Injectable } from "@angular/core";
+import { IFolderRepository } from "./IFolderRepository";
+import data from '../assets/testdata/folders.json';
+import { pipe } from "rxjs";
 
-export class JsonFolderRepository implements FolderRepository {
+@Injectable()
+export class JsonFolderRepository implements IFolderRepository {
     getFolders(): Array<string> {
-        throw new Error("Method not implemented.");
+        return data.map((e) => e.name);
     }
 }
