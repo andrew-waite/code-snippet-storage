@@ -16,4 +16,8 @@ export class AppComponent {
   public ngOnInit() {
     this.folderNames = this.folderRepository.getFolders();
   }
+
+  public addFolder(): void {
+    this.folderNames.push("New Folder");
+  }
 }

@@ -1,6 +1,8 @@
 const {app, BrowserWindow} = require('electron')
     const url = require("url");
     const path = require("path");
+    //require(path.join(__dirname, '/dist/code-snippet-storage/assets/js/context-menu'));
+    require('./src/electron-app/context-menu')
 
     let mainWindow
 
@@ -9,7 +11,8 @@ const {app, BrowserWindow} = require('electron')
         width: 800,
         height: 600,
         webPreferences: {
-          nodeIntegration: true
+          nodeIntegration: true,
+          spellcheck: true
         }
       })
 
