@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { JsonFolderRepository } from './repositories/JsonFolderRepository';
+import { JsonFolderRepository } from './repositories/folders/JsonFolderRepository';
 
 @NgModule({
   declarations: [
