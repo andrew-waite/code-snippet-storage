@@ -1,10 +1,8 @@
-const {app, BrowserWindow} = require('electron')
-    const url = require("url");
-    const path = require("path");
-    //require(path.join(__dirname, '/dist/code-snippet-storage/assets/js/context-menu'));
-    require('./src/electron-app/context-menu')
+import {app, BrowserWindow} from "electron";
+import * as path from "path";
+import * as url from 'url';
 
-    let mainWindow
+    let mainWindow: any = null;
 
     function createWindow () {
       mainWindow = new BrowserWindow({
@@ -18,7 +16,7 @@ const {app, BrowserWindow} = require('electron')
 
       mainWindow.loadURL(
         url.format({
-          pathname: path.join(__dirname, `/dist/code-snippet-storage/index.html`),
+          pathname: path.join(__dirname, `index.html`),
           protocol: "file:",
           slashes: true
         })

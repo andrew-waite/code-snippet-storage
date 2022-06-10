@@ -1,14 +1,14 @@
 {
   "name": "code-snippet-storage",
   "version": "0.0.0",
-  "main": "electron-app.js",
+  "main": "./dist/code-snippet-storage/electron-app.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "start-app": "ng build --base-href ./ && electron .",
+    "start-app": "ng build --base-href ./ && tsc -p ./src/electron-app && electron .",
     "start-electron": "electron ."
   },
   "private": true,
@@ -34,7 +34,7 @@
     "@angular/cli": "~13.3.3",
     "@angular/compiler-cli": "~13.3.4",
     "@types/jasmine": "~3.8.0",
-    "@types/node": "^12.11.1",
+    "@types/node": "^12.20.55",
     "electron": "^18.1.0",
     "electron-packager": "^15.5.1",
     "jasmine-core": "~3.8.0",
