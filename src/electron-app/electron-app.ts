@@ -1,4 +1,4 @@
-import {app, BrowserWindow} from "electron";
+import { Menu, ipcMain, app, BrowserWindow } from "electron";
 import * as path from "path";
 import * as url from 'url';
 
@@ -9,8 +9,9 @@ import * as url from 'url';
         width: 800,
         height: 600,
         webPreferences: {
-          nodeIntegration: true,
-          spellcheck: true
+          nodeIntegration: true, // is default value after Electron v5
+          contextIsolation: true, // protect against prototype pollution
+          preload: path.join(__dirname, "preload.js"),
         }
       })
 
@@ -21,6 +22,26 @@ import * as url from 'url';
           slashes: true
         })
       );
+
+      ipcMain.on('show-context-menu', (event) => {
+        console.log('got command to open context window');
+        const template = [
+          {
+            label: 'Rename',
+            click: () => { event.sender.send('context-menu-command', 'rename') }
+          },
+          {
+            label: 'Menu Item 2'
+          }
+        ];
+        const menu = Menu.buildFromTemplate(template);
+        menu.popup(
+          {
+             window: BrowserWindow.fromWebContents(event.sender)
+          }
+        );
+      })
+
       // Open the DevTools.
       mainWindow.webContents.openDevTools()
 

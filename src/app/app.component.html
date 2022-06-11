@@ -13,10 +13,10 @@
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item folders" *ngFor="let foldername of folderNames">
-        <a href="#" class="nav-link text-white" aria-current="page">
+      <li class="nav-item folders" *ngFor="let folder of folders">
+        <a href="#" class="nav-link text-white" aria-current="page" id="menu-item-{{folder.id}}" [contentEditable]="folder.contenteditable" (contextmenu)="onRightClick($event, folder)">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#folder"/></svg>
-          {{foldername}}
+          {{folder.name}}
         </a>
       </li>
     </ul>

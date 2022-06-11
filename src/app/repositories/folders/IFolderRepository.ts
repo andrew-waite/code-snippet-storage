@@ -1,3 +1,3 @@
-export interface IFolderRepository { 
-    getFolders: () => Array<string>;
+export interface IFolderRepository {
+    getFolders: () => Array<{id: string, name: string, contenteditable: boolean}>;
 }
