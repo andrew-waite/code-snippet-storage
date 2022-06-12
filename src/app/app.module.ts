@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { JsonFolderRepository } from './repositories/folders/JsonFolderRepository';
-import $ from 'jquery';
+import { ContextMenuModule } from '@perfectmemory/ngx-contextmenu';
 
 @NgModule({
   declarations: [
@@ -12,7 +12,8 @@ import $ from 'jquery';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ContextMenuModule
   ],
   providers: [{ provide: 'IFolderRepository', useClass: JsonFolderRepository }],
   bootstrap: [AppComponent]

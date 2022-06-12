@@ -23,25 +23,6 @@ import * as url from 'url';
         })
       );
 
-      ipcMain.on('show-context-menu', (event) => {
-        console.log('got command to open context window');
-        const template = [
-          {
-            label: 'Rename',
-            click: () => { event.sender.send('context-menu-command', 'rename') }
-          },
-          {
-            label: 'Menu Item 2'
-          }
-        ];
-        const menu = Menu.buildFromTemplate(template);
-        menu.popup(
-          {
-             window: BrowserWindow.fromWebContents(event.sender)
-          }
-        );
-      })
-
       // Open the DevTools.
       mainWindow.webContents.openDevTools()
 

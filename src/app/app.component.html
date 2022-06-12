@@ -14,7 +14,7 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item folders" *ngFor="let folder of folders">
-        <a href="#" class="nav-link text-white" aria-current="page" id="menu-item-{{folder.id}}" [contentEditable]="folder.contenteditable" (contextmenu)="onRightClick($event, folder)">
+        <a href="#" class="nav-link text-white" aria-current="page" [id]="'menu-item-' + folder.id" [contentEditable]="folder.contenteditable" [contextMenu]="basicMenu" [contextMenuValue]="folder">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#folder"/></svg>
           {{folder.name}}
         </a>
@@ -32,3 +32,16 @@
     </div>
   </div>
 </main>
+
+<context-menu #basicMenu>
+  <!-- each menu item is a <ng-template>... -->
+  <ng-template contextMenuItem [passive]=true>
+    <!-- ...that can contain any HTML with sepcific styling -->
+    <span class="menu-item-title">Context menu title</span>
+  </ng-template>
+  <!-- ...or just text, the (execute) output is called when the menu item is clicked -->
+  <ng-template contextMenuItem (execute)="rename($event.value)">Rename</ng-template>
+  <ng-template contextMenuItem [disabled]="true"
+    >Disabled menu item</ng-template
+  >
+</context-menu>
