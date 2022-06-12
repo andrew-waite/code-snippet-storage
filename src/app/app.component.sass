@@ -1,4 +1,4 @@
-main 
+main
   display: flex
   flex-wrap: nowrap
   height: 100vh
@@ -7,10 +7,19 @@ main
   overflow-x: auto
   overflow-y: hidden
 
-.bi 
+.bi
   vertical-align: -.125em
   pointer-events: none
   fill: currentColor
 
-.nav-item.folders>a:hover
+.nav-item.folders
+  padding-left: 10px
+
+.nav-item.folders:hover
   background-color: #0d6efd
+  border-radius: 0.25rem
+
+.icon,
+.text
+  vertical-align: middle
+  display: inline-block
