@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import $ from 'jQuery'; 
+import $ from 'jQuery';
 import { NgxEditorModel } from 'ngx-monaco-editor';
 
 @Component({
@@ -17,9 +17,9 @@ export class MonacoeditorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public onMonacoEditorInit(editor: monaco.editor.ICodeEditor): void { 
+  public onMonacoEditorInit(editor: monaco.editor.ICodeEditor): void {
       $('.editor-container').css('height', '100%');
-      
+
       setTimeout(() => {
         //console.log(editor.getDomNode());
         //editor.layout();
@@ -27,8 +27,8 @@ export class MonacoeditorComponent implements OnInit {
       }, 10);
   }
 
-  public onSave(): void { 
-    var save = monaco.editor.getModels()[0].getValue();
-    console.log(save);
+  public onSave(): void {
+    var lines = monaco.editor.getModels()[0].getLinesContent();
+    console.log(lines);
   }
 }
