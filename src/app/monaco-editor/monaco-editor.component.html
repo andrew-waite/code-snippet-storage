@@ -1,1 +1,6 @@
-<ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+<ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="code" (onInit)="onMonacoEditorInit($event)"></ngx-monaco-editor>
+<footer class="bg-light text-center text-lg-start">
+    <div class="text-center p-3">
+        <button>Save</button>
+    </div>
+</footer>

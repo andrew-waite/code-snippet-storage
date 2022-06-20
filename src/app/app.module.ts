@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { JsonFolderRepository } from './repositories/folders/JsonFolderRepository';
 import { ContextMenuModule } from '@perfectmemory/ngx-contextmenu';
 import { MonacoeditorComponent } from './monaco-editor/monaco-editor.component';
-import { MonacoEditorModule } from "ngx-monaco-editor";
+import { MonacoEditorModule} from "ngx-monaco-editor";
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -18,7 +18,11 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     ContextMenuModule,
-    MonacoEditorModule.forRoot(),
+    MonacoEditorModule.forRoot({
+      "defaultOptions": {
+        "automaticLayout": true
+      }
+    }),
     FormsModule
   ],
   providers: [{ provide: 'IFolderRepository', useClass: JsonFolderRepository }],
