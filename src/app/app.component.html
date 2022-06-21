@@ -1,40 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-  <symbol id="folder" width="16" height="16" fill="currentColor" class="bi bi-folder" viewBox="0 0 16 16">
-    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
-  </symbol>
-</svg>
-
 <div class="outer-container">
-  <main class="flex-child-element" style="max-width: 280px;">
-    <h1 class="visually-hidden">Sidebars examples</h1>
-
-    <div id="sidebarcontainer" class="d-flex flex-column flex-shrink-0 p-3 text-white" style="height: 100%; width: 280px;">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <div id="sidebarcontainer" class="d-flex flex-column align-items-stretch flex-shrink-0" style="width: 380px;">
+      <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-light text-decoration-none text-center explorer-heading">
         <span class="fs-4">Code Snippet Storage</span>
       </a>
-      <hr>
-      <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item folders" *ngFor="let folder of folders">
-          <span class="icon">
-            <svg class="bi me-2" width="16" height="16"><use xlink:href="#folder"/></svg>
-          </span>
-          <a href="#" class="nav-link text text-white" aria-current="page" [id]="'menu-item-' + folder.id" [contentEditable]="folder.contenteditable" [contextMenu]="basicMenu" [contextMenuValue]="folder">
-          {{folder.name}}
-          </a>
-        </li>
-      </ul>
-      <hr>
-      <div class="dropdown">
-        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-          <strong>Actions</strong>
+      <div class="list-group list-group-flush scrollarea">
+        <a href="#" class="list-group-item list-group-item-action active py-3 lh-sm" aria-current="true">
+          <div class="d-flex w-100 align-items-center justify-content-between">
+            <strong class="mb-1">List group item heading</strong>
+            <small>Wed</small>
+          </div>
+          <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and date.</div>
         </a>
-        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-          <li (click)="addFolder()"><a class="dropdown-item" href="#">New project...</a></li>
-          <li><a class="dropdown-item" href="#">Settings</a></li>
-        </ul>
+        
+        
+        <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
+          <div class="d-flex w-100 align-items-center justify-content-between">
+            <strong class="mb-1 text-muted">File name.txt</strong>
+          </div>
+          <div class="col-10 mb-1 small text-muted">Some preview data of the file itself</div>
+        </a>
       </div>
     </div>
-  </main>
   <app-monaco-editor class="flex-child-element"></app-monaco-editor>
 </div>
 <context-menu #basicMenu>
