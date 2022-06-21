@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, Inject, Renderer2, ViewChild 
 import { IFileRepository } from './repositories/folders/IFileRepository';
 import { v4 as uuidv4 } from 'uuid';
 import $ from 'jQuery';
+import { IFile } from './repositories/folders/IFile';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent {
   public constructor(@Inject('IFileRepository') private folderRepository: IFileRepository) {
   }
 
-  public files: Array<{id: string, name: string, contenteditable: boolean}> = [];
+  public files: Array<IFile> = [];
   public title = 'code-snippet-storage';
   public selectedItem: any = null;
 
@@ -22,26 +23,28 @@ export class AppComponent {
   }
 
   public addFolder(): void {
-    this.files.push({id: uuidv4(), name: "New File", contenteditable: false});
+    this.files.push({id: uuidv4(), name: "New File", code: '', contentEditable: false});
   }
 
-  public rename(folder: {name: string, id: string, contenteditable: boolean}) {
-    folder.contenteditable = true;
+  public rename(file: IFile) {
+    file.contentEditable = true;
 
     //hack to get focus to actually focus
     setTimeout(function() {
-        $('#menu-item-' + folder.id).trigger('focus');
+        $('#menu-item-' + file.id).trigger('focus');
     });
 
-    this.registerListeners(folder);
+    this.registerListeners(file);
   }
 
-  public onSidebarItemClick(event: any, newValue: any): void { 
+  public onSidebarItemClick(event: any, newValue: any): void {
     this.selectedItem = newValue;
+    console.log(newValue.code);
+    monaco.editor.getModels()[0].setValue(newValue.code);
   }
 
-  private registerListeners(folder: {name: string, id: string, contenteditable: boolean}) {
-    const folderElementId = '#menu-item-' + folder.id;
+  private registerListeners(file: IFile) {
+    const folderElementId = '#menu-item-' + file.id;
 
     $(folderElementId).on('keydown', (jQueryEvent: JQuery.Event) => {
       if (jQueryEvent.key == 'Enter') {
@@ -50,15 +53,15 @@ export class AppComponent {
         //set content editable to false. blur event will handle renaming the file
         $(folderElementId).trigger('blur');
         $(folderElementId).off('keydown');
-        folder.contenteditable = false;
+        file.contentEditable = false;
       }
    });
 
-  // //When user clicks away from the element (i.e content editing done)
+  //When user clicks away from the element (i.e content editing done)
    $(folderElementId).one('blur', () => {
       console.log("Finished editing");
       $(folderElementId).off('keydown');
-      folder.contenteditable = false;
+      file.contentEditable = false;
    });
   }
 }

@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import $ from 'jQuery';
-import { NgxEditorModel } from 'ngx-monaco-editor';
 
 @Component({
   selector: 'app-monaco-editor',
@@ -9,7 +8,7 @@ import { NgxEditorModel } from 'ngx-monaco-editor';
 })
 export class MonacoeditorComponent implements OnInit {
   public editorOptions = {theme: 'vs-dark', language: 'javascript', automaticLayout: true};
-  public code: string= 'function x() {\nconsole.log("Hello world!");\n}';
+  //public code: string= 'function x() {\nconsole.log("Hello world!");\n}';
 
   constructor() {
    }
@@ -17,7 +16,7 @@ export class MonacoeditorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public onMonacoEditorInit(editor: monaco.editor.ICodeEditor): void {
+  public onMonacoEditorInit(): void {
       $('.editor-container').css('height', '100%');
 
       setTimeout(() => {
@@ -28,7 +27,7 @@ export class MonacoeditorComponent implements OnInit {
   }
 
   public onSave(): void {
-    var lines = monaco.editor.getModels()[0].getLinesContent();
+    var lines = monaco.editor.getModels()[0].getValue(monaco.editor.EndOfLinePreference.LF);
     console.log(lines);
   }
 }

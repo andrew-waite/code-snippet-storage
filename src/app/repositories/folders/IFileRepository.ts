@@ -1,3 +1,5 @@
+import { IFile } from "./IFile";
+
 export interface IFileRepository {
-    getFiles: () => Array<{id: string, name: string, contenteditable: boolean}>;
+    getFiles: () => Array<IFile>;
 }

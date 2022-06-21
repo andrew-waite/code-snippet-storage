@@ -1,8 +1,11 @@
 [
     {
-        "name": "test.json"
+        "name": "test.json",
+        "lastModified": "12/12/1970",
+        "code": "function x() {\n  console.log(\"Hello world!\");\n}"
     },
     {
-        "name": "1234.txt"
+        "name": "1234.txt",
+        "code": ""
     }
 ]

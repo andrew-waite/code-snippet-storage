@@ -1,4 +1,4 @@
-<ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="code" (onInit)="onMonacoEditorInit($event)"></ngx-monaco-editor>
+<ngx-monaco-editor class="my-code-editor" [options]="editorOptions" (onInit)="onMonacoEditorInit()"></ngx-monaco-editor>
 <footer class="text-lg-start">
     <div class="p-2">
       <button (click)="onSave()"type="button" class="btn btn-primary">Save</button>
