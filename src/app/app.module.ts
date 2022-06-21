@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { JsonFolderRepository } from './repositories/folders/JsonFolderRepository';
+import { JsonFileRepository } from './repositories/folders/JsonFileRepository';
 import { ContextMenuModule } from '@perfectmemory/ngx-contextmenu';
 import { MonacoeditorComponent } from './monaco-editor/monaco-editor.component';
 import { MonacoEditorModule} from "ngx-monaco-editor";
@@ -25,7 +25,7 @@ import { FormsModule } from '@angular/forms';
     }),
     FormsModule
   ],
-  providers: [{ provide: 'IFolderRepository', useClass: JsonFolderRepository }],
+  providers: [{ provide: 'IFileRepository', useClass: JsonFileRepository }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, Inject, Renderer2, ViewChild } from '@angular/core';
-import { IFolderRepository } from './repositories/folders/IFolderRepository';
+import { IFileRepository } from './repositories/folders/IFileRepository';
 import { v4 as uuidv4 } from 'uuid';
 import $ from 'jQuery';
 
@@ -10,18 +10,19 @@ import $ from 'jQuery';
 })
 
 export class AppComponent {
-  public constructor(@Inject('IFolderRepository') private folderRepository: IFolderRepository) {
+  public constructor(@Inject('IFileRepository') private folderRepository: IFileRepository) {
   }
 
-  public folders: Array<{id: string, name: string, contenteditable: boolean}> = [];
+  public files: Array<{id: string, name: string, contenteditable: boolean}> = [];
   public title = 'code-snippet-storage';
+  public selectedItem: any = null;
 
   public ngOnInit() {
-    this.folders = this.folderRepository.getFolders();
+    this.files = this.folderRepository.getFiles();
   }
 
   public addFolder(): void {
-    this.folders.push({id: uuidv4(), name: "New Folder", contenteditable: false});
+    this.files.push({id: uuidv4(), name: "New File", contenteditable: false});
   }
 
   public rename(folder: {name: string, id: string, contenteditable: boolean}) {
@@ -33,6 +34,10 @@ export class AppComponent {
     });
 
     this.registerListeners(folder);
+  }
+
+  public onSidebarItemClick(event: any, newValue: any): void { 
+    this.selectedItem = newValue;
   }
 
   private registerListeners(folder: {name: string, id: string, contenteditable: boolean}) {
