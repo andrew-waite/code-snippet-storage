@@ -8,7 +8,6 @@ import $ from 'jQuery';
 })
 export class MonacoeditorComponent implements OnInit {
   public editorOptions = {theme: 'vs-dark', language: 'javascript', automaticLayout: true};
-  //public code: string= 'function x() {\nconsole.log("Hello world!");\n}';
 
   constructor() {
    }
@@ -20,8 +19,6 @@ export class MonacoeditorComponent implements OnInit {
       $('.editor-container').css('height', '100%');
 
       setTimeout(() => {
-        //console.log(editor.getDomNode());
-        //editor.layout();
         $('.monaco-editor').css('height', '100%');
       }, 10);
   }

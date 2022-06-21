@@ -8,6 +8,8 @@ import { ContextMenuModule } from '@perfectmemory/ngx-contextmenu';
 import { MonacoeditorComponent } from './monaco-editor/monaco-editor.component';
 import { MonacoEditorModule} from "ngx-monaco-editor";
 import { FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -23,9 +25,11 @@ import { FormsModule } from '@angular/forms';
         "automaticLayout": true
       }
     }),
-    FormsModule
+    FormsModule,
   ],
-  providers: [{ provide: 'IFileRepository', useClass: JsonFileRepository }],
+  providers: [
+    { provide: 'IFileRepository', useClass: JsonFileRepository }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
