@@ -12,7 +12,7 @@
         </a>
       </div>
     </div>
-  <app-monaco-editor class="flex-child-element"></app-monaco-editor>
+  <app-monaco-editor class="flex-child-element" [selectedFileEvent]="selectedItemEvent"></app-monaco-editor>
 </div>
 <context-menu #basicMenu>
   <!-- each menu item is a <ng-template>... -->

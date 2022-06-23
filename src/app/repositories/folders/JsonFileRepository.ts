@@ -9,4 +9,8 @@ export class JsonFileRepository implements IFileRepository {
     public getFiles(): Array<IFile> {
         return data.map<IFile>((e: any) => ({id: uuidv4(), contentEditable: false, ...e}));
     }
+
+    public saveFile(fileName: string, fileContents: string): boolean {
+        throw new Error('Not implemented');
+    }
 }

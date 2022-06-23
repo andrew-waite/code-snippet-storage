@@ -1,8 +1,9 @@
-import { ChangeDetectorRef, Component, ElementRef, Inject, Renderer2, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Output, Renderer2, ViewChild } from '@angular/core';
 import { IFileRepository } from './repositories/folders/IFileRepository';
 import { v4 as uuidv4 } from 'uuid';
 import $ from 'jQuery';
 import { IFile } from './repositories/folders/IFile';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +12,14 @@ import { IFile } from './repositories/folders/IFile';
 })
 
 export class AppComponent {
-  public constructor(@Inject('IFileRepository') private folderRepository: IFileRepository) {
-  }
-
   public files: Array<IFile> = [];
   public title = 'code-snippet-storage';
-  public selectedItem: any = null;
+  public selectedItem!: IFile; 
+  public selectedItemEvent: EventEmitter<IFile> = new EventEmitter();
 
+  public constructor(@Inject('IFileRepository') private folderRepository: IFileRepository) {
+  }
+  
   public ngOnInit() {
     this.files = this.folderRepository.getFiles();
   }
@@ -38,7 +40,9 @@ export class AppComponent {
   }
 
   public onSidebarItemClick(event: any, newValue: any): void {
-    this.selectedItem = newValue;
+    this.selectedItem = <IFile>newValue;
+    this.selectedItemEvent.emit(this.selectedItem);
+
     console.log(newValue.code);
     monaco.editor.getModels()[0].setValue(newValue.code);
   }

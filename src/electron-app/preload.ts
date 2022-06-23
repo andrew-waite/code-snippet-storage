@@ -5,7 +5,7 @@ import {ipcRenderer, contextBridge, IpcRendererEvent, IpcRenderer} from "electro
 export type ContextBridgeApi = {
   // Declare a `readFile` function that will return a promise. This promise
   // will contain the data of the file read from the main process.
-  send: (channel: string, data: any) => void
+  send: (channel: string, ...args: any[]) => void
   receive: (channel: any, listener: (event: IpcRendererEvent, ...args: any[]) => void) => IpcRenderer
   sendSync: (channel: string, ...args: any[]) => any
 }
