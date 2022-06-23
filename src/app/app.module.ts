@@ -10,6 +10,7 @@ import { MonacoEditorModule} from "ngx-monaco-editor";
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { FileSystemRepository } from './repositories/folders/FIleSystemRepository';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     FormsModule,
   ],
   providers: [
-    { provide: 'IFileRepository', useClass: JsonFileRepository }
+    { provide: 'IFileRepository', useClass: FileSystemRepository } //useClass: JsonFileRepository }
   ],
   bootstrap: [AppComponent]
 })

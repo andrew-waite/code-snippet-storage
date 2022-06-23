@@ -2,6 +2,7 @@ import { app, BrowserWindow } from "electron";
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
+import { ElectronFileSystemRepository } from "./ElectronFileSystemRepository";
 
 let mainWindow: any = null;
 
@@ -11,19 +12,13 @@ function createWindow () {
     height: 600,
     webPreferences: {
       nodeIntegration: true, // is default value after Electron v5
-      contextIsolation: true // protect against prototype pollution
+      contextIsolation: true, // protect against prototype pollution
+      preload: path.join(__dirname, "preload.js"),
     }
   })
 
-  let pathIndex = './index.html';
-
-  if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
-    // Path when running electron in local folder
-    pathIndex = '../dist/index.html';
-  }
-
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
+    pathname: path.join(__dirname, '../index.html'),
     protocol: 'file:',
     slashes: true
   }));
@@ -37,20 +32,26 @@ function createWindow () {
 
   mainWindow.webContents.on('did-fail-load', () => {
       mainWindow.loadURL(url.format({
-      pathname: path.join(__dirname, 'index.html'),
+      pathname: path.join(__dirname, '../index.html'),
       protocol: 'file:',
       slashes: true
     }))
   });
+
 }
 
-app.on('ready', createWindow);
+function initializeApp() {
+  createWindow();
+  new ElectronFileSystemRepository();
+}
+
+app.on('ready', initializeApp);
 
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit();
 });
 
 app.on('activate', function () {
-  if (mainWindow === null) createWindow();
+  if (mainWindow === null) initializeApp();
 });
 
