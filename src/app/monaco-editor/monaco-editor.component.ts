@@ -11,8 +11,8 @@ import { IFileRepository } from '../repositories/folders/IFileRepository';
 })
 export class MonacoeditorComponent implements OnInit {
   public editorOptions = {theme: 'vs-dark', language: 'javascript', automaticLayout: true};
-  //The exclamation means we know the property is not defined in the constructor and we will intialize it elsewhere
   
+  //The exclamation means we know the property is not defined in the constructor and we will intialize it elsewhere
   @Input() selectedFileEvent!: EventEmitter<IFile>;
 
   private selectedFile!: IFile;
@@ -22,7 +22,7 @@ export class MonacoeditorComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.selectedFileEvent) {
-      this.selectedFileEvent.subscribe(data => {
+      this.selectedFileEvent.subscribe((data: IFile) => {
         this.selectedFile = data;
       });
     }
@@ -44,6 +44,6 @@ export class MonacoeditorComponent implements OnInit {
     var lines = monaco.editor.getModels()[0].getValue(monaco.editor.EndOfLinePreference.LF);
     console.log(lines);
 
-    this.folderRepository.saveFile(this.selectedFile.name, lines);
+    this.folderRepository.saveFile(this.selectedFile.name, lines).then((result) => console.log('Save succesful? ' + result));
   }
 }

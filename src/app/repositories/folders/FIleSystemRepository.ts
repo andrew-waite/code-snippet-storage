@@ -1,6 +1,7 @@
 import { IFile } from "./IFile";
 import { IFileRepository } from "./IFileRepository";
 import { Injectable } from "@angular/core";
+import { resolve } from "dns";
 
 @Injectable()
 export class FileSystemRepository implements IFileRepository {
@@ -12,14 +13,18 @@ export class FileSystemRepository implements IFileRepository {
     return this.getFilesFromFileSystem();
   }
 
-  public saveFile(fileName: string, fileContents: string): boolean { 
+  public saveFile(fileName: string, fileContents: string): Promise<boolean> { 
     return this.saveFileToDisk(fileName, fileContents);
   }
 
-  private saveFileToDisk(fileName: string, fileContents: string): boolean {
-    window.contextBridgeApi.send('save-file-to-disk', fileName, fileContents);
+  private async saveFileToDisk(fileName: string, fileContents: string): Promise<boolean> {
+    let success: boolean = false;
     
-    return true;
+    await window.contextBridgeApi.invoke('save-file-to-disk', fileName, fileContents).then((data: boolean) => {console.log('data in promise ' + data); success = data});
+    
+    return new Promise(function(resolve, reject) {
+      resolve(success);
+    });
   }
 
   private getFilesFromFileSystem(): Array<IFile> {

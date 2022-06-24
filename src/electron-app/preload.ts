@@ -8,10 +8,14 @@ export type ContextBridgeApi = {
   send: (channel: string, ...args: any[]) => void
   receive: (channel: any, listener: (event: IpcRendererEvent, ...args: any[]) => void) => IpcRenderer
   sendSync: (channel: string, ...args: any[]) => any
+  invoke: (channel: string, ...args: any[]) => Promise<any>
 }
 
 contextBridge.exposeInMainWorld(
   "contextBridgeApi", {
+      invoke: (channel: string, ...args: any[]): Promise<any> => {
+        return ipcRenderer.invoke(channel, ...args);
+      },
       send: (channel: string, ...args: any[]) => {
           ipcRenderer.send(channel, ...args);
       },

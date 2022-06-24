@@ -14,31 +14,27 @@ export class ElectronFileSystemRepository {
   }
 
   private registerIPCMainListeners(): void {
-    this.loadFilesFromDiskListener();ng
+    this.loadFilesFromDiskListener();
     this.saveFileToDiskListener();
   }
 
   private saveFileToDiskListener(): void { 
-    ipcMain.on('save-file-to-disk', (event: Electron.IpcMainEvent, fileName: string, fileContents: string) => {
-      console.log('called savefiletodisklistener');
-      console.log('path: ' + path.join(ElectronFileSystemRepository.DIRECTORY_PATH, fileName));
-      console.log('file contents ' + fileContents);
-      fs.writeFile(path.join(ElectronFileSystemRepository.DIRECTORY_PATH, fileName), fileContents, function(error: NodeJS.ErrnoException) {
-        if(error) {
-            event.returnValue = false;
-            console.log(error);
-        }
-        
-        event.returnValue = true;
-      }); 
+    ipcMain.handle('save-file-to-disk', async (event: Electron.IpcMainEvent, fileName: string, fileContents: string) => {
+      let success: boolean = false;
 
-      event.returnValue = false;
+      await fs.promises.writeFile(path.join(ElectronFileSystemRepository.DIRECTORY_PATH, fileName), fileContents)
+        .then(() => success = true)
+        .catch((error) => {
+          console.log(error); 
+          success = false;
+        });
+    
+      return success;
     });
   }
 
   private loadFilesFromDiskListener(): void { 
     ipcMain.on('load-files-from-disk', (event: Electron.IpcMainEvent) => {
-      //joining path of directorsy 
       if (!fs.existsSync(ElectronFileSystemRepository.DIRECTORY_PATH)){
         fs.mkdirSync(ElectronFileSystemRepository.DIRECTORY_PATH);
       }
