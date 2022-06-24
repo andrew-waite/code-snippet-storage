@@ -43,7 +43,6 @@ export class AppComponent {
     this.selectedItem = <IFile>newValue;
     this.selectedItemEvent.emit(this.selectedItem);
 
-    console.log(newValue.code);
     monaco.editor.getModels()[0].setValue(newValue.code);
   }
 
@@ -63,7 +62,6 @@ export class AppComponent {
 
   //When user clicks away from the element (i.e content editing done)
    $(folderElementId).one('blur', () => {
-      console.log("Finished editing");
       $(folderElementId).off('keydown');
       file.contentEditable = false;
    });

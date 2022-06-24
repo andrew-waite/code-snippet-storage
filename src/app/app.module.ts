@@ -3,14 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { JsonFileRepository } from './repositories/folders/JsonFileRepository';
 import { ContextMenuModule } from '@perfectmemory/ngx-contextmenu';
 import { MonacoeditorComponent } from './monaco-editor/monaco-editor.component';
 import { MonacoEditorModule} from "ngx-monaco-editor";
 import { FormsModule } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { FileSystemRepository } from './repositories/folders/FIleSystemRepository';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -21,15 +19,12 @@ import { FileSystemRepository } from './repositories/folders/FIleSystemRepositor
     BrowserModule,
     AppRoutingModule,
     ContextMenuModule,
-    MonacoEditorModule.forRoot({
-      "defaultOptions": {
-        "automaticLayout": true
-      }
-    }),
+    MonacoEditorModule.forRoot(),
     FormsModule,
+    NgbModule
   ],
   providers: [
-    { provide: 'IFileRepository', useClass: FileSystemRepository } //useClass: JsonFileRepository }
+    { provide: 'IFileRepository', useClass: environment.fileRepository }
   ],
   bootstrap: [AppComponent]
 })

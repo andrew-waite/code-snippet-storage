@@ -20,7 +20,7 @@ export class FileSystemRepository implements IFileRepository {
   private async saveFileToDisk(fileName: string, fileContents: string): Promise<boolean> {
     let success: boolean = false;
     
-    await window.contextBridgeApi.invoke('save-file-to-disk', fileName, fileContents).then((data: boolean) => {console.log('data in promise ' + data); success = data});
+    await window.contextBridgeApi.invoke('save-file-to-disk', fileName, fileContents).then((data: boolean) => success = data);
     
     return new Promise(function(resolve, reject) {
       resolve(success);

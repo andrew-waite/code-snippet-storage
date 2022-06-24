@@ -11,6 +11,8 @@ export class JsonFileRepository implements IFileRepository {
     }
 
     public saveFile(fileName: string, fileContents: string): Promise<boolean> {
-        throw new Error('Not implemented');
+        return new Promise(function(resolve, reject) {
+            resolve(true);
+        });
     }
 }

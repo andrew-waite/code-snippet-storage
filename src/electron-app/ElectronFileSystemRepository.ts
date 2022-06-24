@@ -51,9 +51,6 @@ export class ElectronFileSystemRepository {
               let stats = fs.statSync(path.join(ElectronFileSystemRepository.DIRECTORY_PATH, fileName));
 
               files.push({id: uuidv4(), name: fileName, code: data.toString(), lastModified: stats.mtime.toDateString(), contentEditable: false} as IFile);
-
-              console.log('fileName' + fileName);
-              console.log('data: ' + data.toString());
           });
 
           event.returnValue = files;
