@@ -15,4 +15,8 @@ export class JsonFileRepository implements IFileRepository {
             resolve(true);
         });
     }
+
+    public renameFile(originalFileName: string, newFileName: string): void {
+        
+    }
 }

@@ -17,6 +17,10 @@ export class FileSystemRepository implements IFileRepository {
     return this.saveFileToDisk(fileName, fileContents);
   }
 
+  public renameFile(originalFileName: string, newFileName: string): void {
+    window.contextBridgeApi.send('rename-file-on-disk', originalFileName, newFileName);
+  }
+
   private async saveFileToDisk(fileName: string, fileContents: string): Promise<boolean> {
     let success: boolean = false;
     

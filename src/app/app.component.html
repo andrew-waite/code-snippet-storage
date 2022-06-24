@@ -4,25 +4,25 @@
         <span class="fs-4">Code Snippet Storage</span>
       </a>
       <div class="list-group list-group-flush scrollarea">
-        <a href="#" class="list-group-item list-group-item-action lh-sm" aria-current="true" *ngFor="let file of files" [ngClass]="{'active': selectedItem == file}" (click)="onSidebarItemClick($event, file)">
+        <a href="#" class="list-group-item list-group-item-action lh-sm" aria-current="true" *ngFor="let file of files" [ngClass]="{'active': selectedItem == file}" (click)="onSidebarItemClick($event, file)" [contextMenu]="basicMenu" [contextMenuValue]="file">
           <div class="d-flex w-100 align-items-center justify-content-between">
-            <strong class="mb-1">{{file.name}}</strong>
+            <strong class="mb-1" [id]="'menu-item-' + file.id" [contentEditable]="file.contentEditable">{{file.name}}</strong>
           </div>
           <div class="col-10 mb-1 small">Last Modified: {{file.lastModified}}</div>
         </a>
       </div>
+
+      <div class="controlsBar">
+        <div class="p-2">
+          <button (click)="addFile()" type="button" class="btn btn-primary">New file</button>
+        </div>
+      </div>
     </div>
   <app-monaco-editor class="flex-child-element" [selectedFileEvent]="selectedItemEvent"></app-monaco-editor>
 </div>
+
 <context-menu #basicMenu>
   <!-- each menu item is a <ng-template>... -->
-  <ng-template contextMenuItem [passive]=true>
-    <!-- ...that can contain any HTML with sepcific styling -->
-    <span class="menu-item-title">Context menu title</span>
-  </ng-template>
   <!-- ...or just text, the (execute) output is called when the menu item is clicked -->
   <ng-template contextMenuItem (execute)="rename($event.value)">Rename</ng-template>
-  <ng-template contextMenuItem [disabled]="true"
-    >Disabled menu item</ng-template
-  >
 </context-menu>

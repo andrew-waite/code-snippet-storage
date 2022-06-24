@@ -16,6 +16,7 @@ export class ElectronFileSystemRepository {
   private registerIPCMainListeners(): void {
     this.loadFilesFromDiskListener();
     this.saveFileToDiskListener();
+    this.renameFileOnDiskListener();
   }
 
   private saveFileToDiskListener(): void { 
@@ -30,6 +31,14 @@ export class ElectronFileSystemRepository {
         });
     
       return success;
+    });
+  }
+
+  private renameFileOnDiskListener() {
+    ipcMain.on('rename-file-on-disk', (event: Electron.IpcMainEvent, originalFileName: string, newFileName: string) => {
+      fs.rename(path.join(ElectronFileSystemRepository.DIRECTORY_PATH, originalFileName), path.join(ElectronFileSystemRepository.DIRECTORY_PATH, newFileName), function(err) {
+        if ( err ) console.log('ERROR: ' + err);
+      });
     });
   }
 

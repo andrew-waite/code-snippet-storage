@@ -1,9 +1,8 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Output, Renderer2, ViewChild } from '@angular/core';
+import {  Component, EventEmitter, Inject } from '@angular/core';
 import { IFileRepository } from './repositories/folders/IFileRepository';
 import { v4 as uuidv4 } from 'uuid';
 import $ from 'jQuery';
 import { IFile } from './repositories/folders/IFile';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -17,18 +16,19 @@ export class AppComponent {
   public selectedItem!: IFile; 
   public selectedItemEvent: EventEmitter<IFile> = new EventEmitter();
 
-  public constructor(@Inject('IFileRepository') private folderRepository: IFileRepository) {
+  public constructor(@Inject('IFileRepository') private fileRepository: IFileRepository) {
   }
   
   public ngOnInit() {
-    this.files = this.folderRepository.getFiles();
+    this.files = this.fileRepository.getFiles();
   }
 
-  public addFolder(): void {
-    this.files.push({id: uuidv4(), name: "New File", code: '', contentEditable: false});
+  public addFile(): void {
+    this.files.push({id: uuidv4(), name: "NewFile.txt", code: '', contentEditable: false});
   }
 
   public rename(file: IFile) {
+    console.log('hi');
     file.contentEditable = true;
 
     //hack to get focus to actually focus
@@ -48,6 +48,7 @@ export class AppComponent {
 
   private registerListeners(file: IFile) {
     const folderElementId = '#menu-item-' + file.id;
+    const originaFileName = file.name;
 
     $(folderElementId).on('keydown', (jQueryEvent: JQuery.Event) => {
       if (jQueryEvent.key == 'Enter') {
@@ -64,6 +65,13 @@ export class AppComponent {
    $(folderElementId).one('blur', () => {
       $(folderElementId).off('keydown');
       file.contentEditable = false;
+
+      const newFileName = $(folderElementId).text();
+      this.finishedRenamingFile(originaFileName, newFileName);
    });
+  }
+
+  private finishedRenamingFile(originalFileName: string, newFileName: string) {
+    this.fileRepository.renameFile(originalFileName, newFileName);
   }
 }
