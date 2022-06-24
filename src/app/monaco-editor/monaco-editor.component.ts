@@ -1,6 +1,6 @@
-import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import $ from 'jQuery';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap'
 import { IFile } from '../repositories/folders/IFile';
@@ -18,6 +18,7 @@ export class MonacoeditorComponent implements OnInit {
   
   //The exclamation means we know the property is not defined in the constructor and we will intialize it elsewhere
   @Input() selectedFileEvent!: EventEmitter<IFile>;
+  @Output() saveEvent: EventEmitter<string> = new EventEmitter<any>();
   @ViewChild('selfClosingAlert', {static: false}) selfClosingAlert!: NgbAlert;
 
   private selectedFile!: IFile;
@@ -52,7 +53,9 @@ export class MonacoeditorComponent implements OnInit {
 
     this.folderRepository.saveFile(this.selectedFile.name, lines)
       .then((result) => {
+        this.saveEvent.emit();
         this._success.next('The file ' + this.selectedFile.name + ' was saved successfully');
       });
+
   }
 }

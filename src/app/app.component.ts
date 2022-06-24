@@ -3,6 +3,7 @@ import { IFileRepository } from './repositories/folders/IFileRepository';
 import { v4 as uuidv4 } from 'uuid';
 import $ from 'jQuery';
 import { IFile } from './repositories/folders/IFile';
+import { Event } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,13 @@ export class AppComponent {
   }
 
   public addFile(): void {
-    this.files.push({id: uuidv4(), name: "NewFile.txt", code: '', contentEditable: false});
+    this.fileRepository.saveFile('NewFile.txt', '');
+    this.refreshFileList();
+  }
+
+  public refreshFileList(): void {
+    this.files = this.fileRepository.getFiles();
+    console.log('refreshed file list');
   }
 
   public rename(file: IFile) {

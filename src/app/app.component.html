@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-  <app-monaco-editor class="flex-child-element" [selectedFileEvent]="selectedItemEvent"></app-monaco-editor>
+  <app-monaco-editor class="flex-child-element" [selectedFileEvent]="selectedItemEvent" (saveEvent)="refreshFileList()"></app-monaco-editor>
 </div>
 
 <context-menu #basicMenu>

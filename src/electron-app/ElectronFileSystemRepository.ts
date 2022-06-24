@@ -23,6 +23,10 @@ export class ElectronFileSystemRepository {
     ipcMain.handle('save-file-to-disk', async (event: Electron.IpcMainEvent, fileName: string, fileContents: string) => {
       let success: boolean = false;
 
+      if (fileName == 'NewFile.txt') {
+        fileName = this.getNewFileName(fileName);
+      }
+
       await fs.promises.writeFile(path.join(ElectronFileSystemRepository.DIRECTORY_PATH, fileName), fileContents)
         .then(() => success = true)
         .catch((error) => {
@@ -32,6 +36,15 @@ export class ElectronFileSystemRepository {
     
       return success;
     });
+  }
+
+  private getNewFileName(fileName: string, increment: number = 0): string {
+    let fileNameToCheck = path.parse(fileName).name + (increment == 0 ? '' : increment) + path.parse(fileName).ext;
+    if(fs.existsSync(path.join(ElectronFileSystemRepository.DIRECTORY_PATH, fileNameToCheck))) {
+      return this.getNewFileName(fileName, ++increment);
+    } else {
+      return fileNameToCheck;
+    }
   }
 
   private renameFileOnDiskListener() {
