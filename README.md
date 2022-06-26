@@ -2,7 +2,7 @@
 
 As the name suggests this is an app to store code snippets. 
 
-This is the first electron/nodejs project that I've made. 
+This is the first electron/nodejs project that I've made. I created this app so I could quickly save code snippets and have them stored in an easy to access location.
 
 ![image](https://user-images.githubusercontent.com/2316269/175801359-1c48888d-1845-474c-a6b5-040197e1f622.png)
 
